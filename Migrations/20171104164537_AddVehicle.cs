@@ -34,7 +34,7 @@ namespace vega.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleFeature",
+                name: "VehicleFeatures",
                 columns: table => new
                 {
                     VehicleId = table.Column<int>(type: "int", nullable: false),
@@ -42,15 +42,15 @@ namespace vega.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleFeature", x => new { x.VehicleId, x.FeatureId });
+                    table.PrimaryKey("PK_VehicleFeatures", x => new { x.VehicleId, x.FeatureId });
                     table.ForeignKey(
-                        name: "FK_VehicleFeature_Features_FeatureId",
+                        name: "FK_VehicleFeatures_Features_FeatureId",
                         column: x => x.FeatureId,
                         principalTable: "Features",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VehicleFeature_Vehicles_VehicleId",
+                        name: "FK_VehicleFeatures_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -58,8 +58,8 @@ namespace vega.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleFeature_FeatureId",
-                table: "VehicleFeature",
+                name: "IX_VehicleFeatures_FeatureId",
+                table: "VehicleFeatures",
                 column: "FeatureId");
 
             migrationBuilder.CreateIndex(
@@ -71,7 +71,7 @@ namespace vega.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VehicleFeature");
+                name: "VehicleFeatures");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

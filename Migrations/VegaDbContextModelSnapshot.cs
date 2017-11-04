@@ -105,7 +105,7 @@ namespace vega.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("VehicleFeature");
+                    b.ToTable("VehicleFeatures");
                 });
 
             modelBuilder.Entity("vega.Models.Model", b =>
