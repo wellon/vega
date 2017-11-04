@@ -6,12 +6,12 @@ namespace vega.Controllers.Resources
     {
         [Required]
         [StringLength(255)]
-        public string ContactName { get; set; }
+        public string Name { get; set; }
         [Required]
         [StringLength(255)]
-        public string ContactEmail { get; set; }
+        public string Email { get; set; }
         [Required]
         [StringLength(255)]
-        public string ContactPhone { get; set; }
+        public string Phone { get; set; }
     }
 }
