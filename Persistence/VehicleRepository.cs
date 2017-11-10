@@ -12,14 +12,29 @@ namespace vega.Persistence
         {
             _context = context;
         }
-        public async Task<Vehicle> GetVehicle(int id)
+        public async Task<Vehicle> GetVehicle(int id, bool includeRelated = true)
         {
+            if (!includeRelated)
+                return await _context.Vehicles.FindAsync(id);
+
             return await _context.Vehicles
                 .Include(v => v.Model)
                     .ThenInclude(m => m.Make)
                 .Include(v => v.Features)
                     .ThenInclude(vf => vf.Feature)
                 .SingleOrDefaultAsync(v => v.Id == id);
+        }
+
+
+        
+        public void Add(Vehicle vehicle)
+        {
+            _context.Vehicles.Add(vehicle);
+        }
+
+        public void Remove(Vehicle vehicle)
+        {
+            _context.Vehicles.Remove(vehicle);
         }
     }
 }
