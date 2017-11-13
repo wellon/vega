@@ -1,7 +1,10 @@
+import * as Raven from 'raven-js';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
+import { ErrorHandler } from '@angular/core';
+import { AppErrorHandler } from './app.error-handler';
 
 import { VehicleService } from './services/vehicle.service';
 import { CommonModule } from '@angular/common';
@@ -13,8 +16,11 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
-import { ErrorHandler } from '@angular/core';
-import { AppErrorHandler } from './app.error-handler';
+
+
+Raven
+.config('https://67f8836c69e742f68e61fd2753518daf@sentry.io/244376')
+.install();
 
 @NgModule({
     declarations: [
