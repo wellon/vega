@@ -1,6 +1,7 @@
 import { VehicleService } from './../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastyService } from 'ng2-toasty';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -17,10 +18,25 @@ export class VehicleFormComponent implements OnInit {
   };
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private vehicleService: VehicleService,
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService) {
+
+      route.params.subscribe(p => {
+        this.vehicle.id = +p['id'];
+      });
+    }
 
   ngOnInit() {
+    this.vehicleService.getVehicle(this.vehicle.id)
+      .subscribe(v => {
+        this.vehicle = v;
+      }, err => {
+        if (err.status == 404)
+          this.router.navigate(['/home']);
+      });
+
     this.vehicleService.getMakes().subscribe(makes =>
       this.makes = makes);
 
@@ -35,9 +51,9 @@ export class VehicleFormComponent implements OnInit {
   }
 
   onFeatureToggle(featureId: any, $event:any){
-      if($event.target.checked)
-      this.vehicle.features.push(featureId);
-      else{
+      if ($event.target.checked)
+        this.vehicle.features.push(featureId);
+      else {
         var index = this.vehicle.features.indexOf(featureId);
         this.vehicle.features.splice(index, 1);
       }
@@ -45,7 +61,6 @@ export class VehicleFormComponent implements OnInit {
 
   submit(){
     this.vehicleService.create(this.vehicle)
-      .subscribe(
-        x => console.log(x))
+      .subscribe(x => console.log(x));
   }
 }
