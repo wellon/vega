@@ -1,16 +1,15 @@
 import * as Raven from 'raven-js';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
-import { ErrorHandler } from '@angular/core';
-import { AppErrorHandler } from './app.error-handler';
 
-import { VehicleService } from './services/vehicle.service';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
+import { AppErrorHandler } from './app.error-handler';
+import { VehicleService } from './services/vehicle.service';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
