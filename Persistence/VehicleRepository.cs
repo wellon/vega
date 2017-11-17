@@ -6,6 +6,7 @@ using vega.Core;
 using System.Linq;
 using System.Linq.Expressions;
 using System;
+using vega.Extensions;
 
 namespace vega.Persistence
 {
@@ -59,21 +60,12 @@ namespace vega.Persistence
             {
                 ["make"] = v => v.Model.Make.Name,
                 ["model"] = v => v.Model.Name,
-                ["contactName"] = v => v.ContactName,
-                ["id"] = v => v.Id,
+                ["contactName"] = v => v.ContactName
             };
-
-            query = ApplyOrdering(queryObj, query, columnsMap);
             
-            return await query.ToListAsync();
-        }
+            query = query.ApplyOrdering(queryObj, columnsMap);
 
-        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery queryObj, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnsMap)
-        {
-            if (queryObj.IsSortAscending)
-                return query.OrderBy(columnsMap[queryObj.SortBy]);
-            else
-                return query.OrderByDescending(columnsMap[queryObj.SortBy]);
+            return await query.ToListAsync();
         }
     }
 }
