@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { SaveVehicle } from '../models/vehicle';
+import { encode } from '@angular/router/src/url_tree';
 
 @Injectable()
 export class VehicleService {
@@ -30,8 +31,8 @@ export class VehicleService {
       .map(res => res.json());
   }
 
-  getVehicles() {
-    return this.http.get(this.vehiclesEndpoint)
+  getVehicles(filter: any = {}) {
+    return this.http.get(this.vehiclesEndpoint + '?' + this.toQueryString(filter))
       .map(res => res.json());
   }
 
@@ -43,5 +44,16 @@ export class VehicleService {
   delete(id: any){
     return this.http.delete(this.vehiclesEndpoint + '/' + id)
       .map(res => res.json());
+  }
+
+  toQueryString(obj: any){
+    var parts = [];
+    for (var property in obj){
+      var value = obj[property]
+      if (value != null && value != undefined)
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+    }
+
+    return parts.join('&');
   }
 }
