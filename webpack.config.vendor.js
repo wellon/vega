@@ -21,6 +21,7 @@ const nonTreeShakableModules = [
     'es6-shim',
     'event-source-polyfill',
     'jquery',
+    'font-awesome/css/font-awesome.css',
     'ng2-toasty',
     'ng2-toasty/bundles/style-bootstrap.css',
     'raven-js',
