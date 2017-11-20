@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpModule, BrowserXhr } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
 import { AppErrorHandler } from './app.error-handler';
@@ -19,6 +19,7 @@ import { VehicleListComponent } from './components/vehicle-list/vehicle-list.com
 import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { PhotoService } from './services/photo.service';
+import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 
 
 Raven
@@ -56,8 +57,10 @@ Raven
     ],
     providers:[
         { provide: ErrorHandler, useClass: AppErrorHandler },
+        { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
         VehicleService,
-        PhotoService
+        PhotoService,
+        ProgressService
     ]
 })
 export class AppModuleShared {
