@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using vega.Core.Models;
 using vega.Core;
 using vega.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace vega
 {
@@ -37,6 +38,17 @@ namespace vega
             services.AddDbContext<VegaDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://vegaprojectasp.auth0.com/";
+                options.Audience = "https://api.vega.com";
+            });
+
             services.AddMvc();
         }
 
@@ -58,6 +70,8 @@ namespace vega
 
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
