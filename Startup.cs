@@ -13,6 +13,7 @@ using vega.Core.Models;
 using vega.Core;
 using vega.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using vega.Controllers;
 
 namespace vega
 {
@@ -37,6 +38,11 @@ namespace vega
 
             services.AddDbContext<VegaDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://vega.com/roles", "Admin"));
+            });
 
             services.AddAuthentication(options =>
             {
