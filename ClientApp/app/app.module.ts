@@ -25,6 +25,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { UnauthPage } from './components/errors/unauthorized/unauth-page.component';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 
 Raven
@@ -64,13 +65,12 @@ Raven
     ],
     providers:[
         { provide: ErrorHandler, useClass: AppErrorHandler },
-        { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
         AuthService,
         AuthGuard,
+        AUTH_PROVIDERS,
         AdminAuthGuard,
         VehicleService,
-        PhotoService,
-        ProgressService,
+        PhotoService
     ]
 })
 export class AppModuleShared {

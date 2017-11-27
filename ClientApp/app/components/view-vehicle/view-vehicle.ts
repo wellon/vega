@@ -3,11 +3,16 @@ import { VehicleService } from './../../services/vehicle.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoService } from '../../services/photo.service';
-import { ProgressService } from '../../services/progress.service';
+import { ProgressService, BrowserXhrWithProgress } from '../../services/progress.service';
 import { NgZone } from '@angular/core';
+import { BrowserXhr } from '@angular/http';
 
 @Component({
-  templateUrl: 'view-vehicle.html'
+  templateUrl: 'view-vehicle.html',
+  providers: [
+    { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
+    ProgressService
+  ]
 })
 export class ViewVehicleComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
