@@ -21,6 +21,7 @@ import { PaginationComponent } from './components/shared/pagination.component';
 import { PhotoService } from './services/photo.service';
 import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 import { AuthService } from './services/auth.service';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 Raven
@@ -37,7 +38,8 @@ Raven
         VehicleFormComponent,
         VehicleListComponent,
         ViewVehicleComponent,
-        PaginationComponent
+        PaginationComponent,
+        AdminComponent
     ],
     imports: [
         CommonModule,
@@ -50,6 +52,7 @@ Raven
             { path: 'vehicles/edit/:id', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
             { path: 'vehicles', component: VehicleListComponent },
+            { path: 'admin', component: AdminComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
