@@ -20,17 +20,7 @@ export class AuthService {
   private roles: string[] = [];
 
   constructor(public router: Router) {
-    var prof = localStorage.getItem('profile');
-    if (prof){
-      this.userProfile = JSON.parse(prof);
-    }
-
-    var token = localStorage.getItem('token');
-    if (token) {
-      var jwtHelper = new JwtHelper();
-      var decodedToken = jwtHelper.decodeToken(token);
-      this.roles = decodedToken['https://vega.com/roles'];
-    }
+    this.readUserFromLocalStorage();
   }
 
 
@@ -40,16 +30,14 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
+      console.log(authResult);
       if (authResult && authResult.accessToken) {
         window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/home']);
-        
-        var jwtHelper = new JwtHelper();
-        var decodedToken = jwtHelper.decodeToken(authResult.accessToken);
-        this.roles = decodedToken['https://vega.com/roles'];
 
-        this.getProfile();
+        this.getProfile(authResult.accessToken);
+        this.readUserFromLocalStorage();
 
       } else if (err) {
         this.router.navigate(['/home']);
@@ -89,25 +77,31 @@ export class AuthService {
   }
 
   public isInRole(roleName: any) {
-    // console.log("isInRole: ", roleName);
     return this.roles.indexOf(roleName) > -1;
   }
 
-  public getProfile(): void {
-    const accessToken = localStorage.getItem('token');
-    if (!accessToken) {
-      throw new Error('Access token must exist to fetch profile');
-    }
-  
-    const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+  public getProfile(token: any): void {
+    this.auth0.client.userInfo(token, (err, profile) => {
       if (profile) {
-        self.userProfile = profile;
         localStorage.setItem('profile', JSON.stringify(profile));
       }
       else{
         throw err;
       }
     });
+  }
+
+  readUserFromLocalStorage(){
+    const token = localStorage.getItem('token');
+
+    if (token){
+      var jwtHelper = new JwtHelper();
+      var decodedToken = jwtHelper.decodeToken(token);
+      this.roles = decodedToken['https://vega.com/roles'];
+  
+      var prof = localStorage.getItem('profile');
+      if (prof)
+        this.userProfile = JSON.parse(prof);      
+    }
   }
 }
