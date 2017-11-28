@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   public isInRole(roleName: any) {
-    return this.roles.indexOf(roleName) > -1;
+    return this.roles.indexOf(roleName) > -1 || [];
   }
 
   public getProfile(token: any): void {
