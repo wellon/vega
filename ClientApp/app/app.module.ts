@@ -3,8 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
-
 import { CommonModule } from '@angular/common';
+import { ChartModule } from 'angular2-chartjs';
+
+
 import { HttpModule, BrowserXhr } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
@@ -48,6 +50,7 @@ Raven
     ],
     imports: [
         CommonModule,
+        ChartModule,
         HttpModule,
         FormsModule,
         ToastyModule.forRoot(),

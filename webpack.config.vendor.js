@@ -16,9 +16,11 @@ const treeShakableModules = [
 ];
 const nonTreeShakableModules = [
     'auth0-js',
+    'angular2-chartjs',
     'angular2-jwt',
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
+    'chart.js',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
