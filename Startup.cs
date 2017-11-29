@@ -19,9 +19,15 @@ namespace vega
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+
+            var builder = new ConfigurationBuilder();
+
+            if(env.IsDevelopment()){
+                builder.AddUserSecrets<Startup>();
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -39,7 +45,7 @@ namespace vega
             services.AddAutoMapper();
 
             services.AddDbContext<VegaDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                options => options.UseSqlServer(Configuration["ConnectionString:Default"]));
 
             services.AddAuthorization(options =>
             {

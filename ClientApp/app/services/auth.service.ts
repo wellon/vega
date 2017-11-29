@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   public isInRole(roleName: any) {
-    return this.roles.indexOf(roleName) > -1 || [];
+    return this.roles.indexOf(roleName) > -1;
   }
 
   public getProfile(token: any): void {
@@ -97,7 +97,7 @@ export class AuthService {
     if (token){
       var jwtHelper = new JwtHelper();
       var decodedToken = jwtHelper.decodeToken(token);
-      this.roles = decodedToken['https://vega.com/roles'];
+      this.roles = decodedToken['https://vega.com/roles'] || [];
   
       var prof = localStorage.getItem('profile');
       if (prof)
