@@ -1,6 +1,12 @@
 # vega
 A sample vehicle dealer app built with Angular 4, ASP.NET Core and Entity Framework Core.<br />
-:warning:**_I am not a UX/UI designer, so the main focus of this app is on functionality._**
+:warning:**_I am not a UX/UI designer, so the main focus of this app is on functionality._** <br />
+
+Use the credentials below to log in as the admin and to be able for CRUD operations:<br />
+**log:** user2@vega.com <br />
+**pass:** qweasdzxc123 <br />
+
+_Admin privileges are set manually per account yet_<br />
 
 # How to run the project:
 ```
