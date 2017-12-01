@@ -17,7 +17,7 @@ export class AdminAuthGuard extends AuthGuard{
 
         if(isAuthenticated) {
             if(!this.auth.isInRole('Admin'))
-                this.router.navigate(['/errors/401']);
+                this.router.navigate(['/']);
             return true;
         }
         else{

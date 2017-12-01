@@ -8,11 +8,23 @@ Use the credentials below to log in as the admin and to be able for CRUD operati
 
 _Admin privileges are set manually per account yet_<br />
 
-# How to run the project:
+# How to run the project
+## Dev mode:
 ```
+$ set ASPNETCORE_ENVIRONMENT=Development
 $ npm install
 $ dotnet restore
 $ dotnet user-secrets set ConnectionStrings:Default "<YOUR CONNECTION STRING>"
+$ webpack --config webpack.config.vendor.js
+$ webpack 
+$ dotnet ef database update
+$ dotnet watch run 
+```
+## Production mode:
+First of all set your _db connection string_ in **appSettings.Production.json**, then follow the steps below:
+```
+$ npm install
+$ dotnet restore
 $ webpack --config webpack.config.vendor.js
 $ webpack 
 $ dotnet ef database update

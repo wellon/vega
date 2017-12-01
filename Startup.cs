@@ -28,6 +28,8 @@ namespace vega
             if(env.IsDevelopment()){
                 builder.AddUserSecrets<Startup>();
             }
+
+            builder.AddEnvironmentVariables();
         }
 
         public IConfiguration Configuration { get; }
